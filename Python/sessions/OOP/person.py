@@ -298,7 +298,12 @@ class Manager(Employee):
 
     def team(self) -> None:
         """
-        Prints the information about the employees managed by this manager
+        Prints the information about the employees managed by this manager,
+        excluding sensitive information such as salary.
         """
         for i, emp in enumerate(self.__team_members(), start=1):
-            print(f"{i}.\n{emp}\n")
+            safe_info = f"Name: {emp.name}\nJob: {emp.job}"
+            # If department attribute exists, include it
+            if hasattr(emp, "dept"):
+                safe_info += f"\nDept: {emp.dept}"
+            print(f"{i}.\n{safe_info}\n")
